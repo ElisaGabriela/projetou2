@@ -35,7 +35,10 @@ public:
 int main() {
     Sculptor Voxel(5,5,5);
     Voxel.setColor(1,0,0,1);
-    Voxel.putVoxel(1,1,1);
+    Voxel.putBox(0,4,0,4,0,4);
+    Voxel.cutBox(0,3,0,3,0,4);
+
+
     Voxel.writeOFF((char*)"voxels.off");
 
     return 0;
@@ -44,8 +47,6 @@ int main() {
 Sculptor::Sculptor(int _nx, int _ny, int _nz) {
   nx = _nx; ny = _ny; nz = _nz;
   r=g=b=a=0.5;
-
-  //o código não está passando daqui... 😭😭😭
 
   v = new Voxel**[nx];
 
@@ -253,10 +254,10 @@ void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
                 if (((i-xcenter)*(i-xcenter)) + ((j-ycenter)*(j-ycenter)) + ((k-zcenter)*(k-zcenter)) <= ((radius)*(radius)))
                 {
                     v[i][j][k].isOn = true;
-                    v[i][j][k].r = _r;
-                    v[i][j][k].g = _g;
-                    v[i][j][k].b = _p;
-                    v[i][j][k].a = _alpha;
+                    v[i][j][k].r = r;
+                    v[i][j][k].g = g;
+                    v[i][j][k].b = b;
+                    v[i][j][k].a = a;
                 }}}}}
 
 void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
@@ -270,10 +271,10 @@ void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
                 //Equacao da esfera
                 if (((i-xcenter)*(i-xcenter)) + ((j-ycenter)*(j-ycenter)) + ((k-zcenter)*(j-ycenter)) <= ((radius)*(radius)))
                 {
-                    v[i][j][k].r = _r;
-                    v[i][j][k].g = _g;
-                    v[i][j][k].b = _p;
-                    v[i][j][k].a = _alpha;
+                    v[i][j][k].r = r;
+                    v[i][j][k].g = g;
+                    v[i][j][k].b = b;
+                    v[i][j][k].a = a;
                     v[i][j][k].isOn = false;
 
                 }}}}}
@@ -285,14 +286,14 @@ void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
         {
             for(int k=0; k< rz; k++)
             {
-                //Equacao da elipse
+                //Equacao da Elipse
                 if ((((i-xcenter)*(i-xcenter))/((float)((xcenter)*(xcenter)))) + (((j-ycenter)*(j-ycenter))/((float)((ycenter)*(ycenter))))
                         + (((k-zcenter)*(k-zcenter))/((float)((zcenter)*(zcenter)))) <=1.0)
                 {
-                    v[i][j][k].r = _r;
-                    v[i][j][k].g = _g;
-                    v[i][j][k].b = _p;
-                    v[i][j][k].a = _alpha;
+                    v[i][j][k].r = r;
+                    v[i][j][k].g = g;
+                    v[i][j][k].b = b;
+                    v[i][j][k].a = a;
                     v[i][j][k].isOn = true;
 
                 }}}}}
@@ -304,15 +305,15 @@ void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
         {
             for(int k=0; k< rz; k++)
             {
-                //equacao da elipse
+                //equacao da Elipse
                 if ((((i-xcenter)*(i-xcenter))/((float)((xcenter)*(xcenter)))) +
                         ((((j-ycenter)*(j-ycenter)))/((float)((ycenter)*(ycenter)))) +
                         ((((k-zcenter)*(k-zcenter)))/((float)((zcenter)*(zcenter)))) <=1.0)
                 {
-                    v[i][j][k].r = _r;
-                    v[i][j][k].g = _g;
-                    v[i][j][k].b = _p;
-                    v[i][j][k].a = _alpha;
+                    v[i][j][k].r = r;
+                    v[i][j][k].g = g;
+                    v[i][j][k].b = b;
+                    v[i][j][k].a = a;
                     v[i][j][k].isOn = false;
 
                 }}}}}
