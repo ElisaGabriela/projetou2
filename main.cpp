@@ -241,3 +241,40 @@ void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1){
 
             }}}}
 
+void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
+    for(int i=0; i< xcenter; i++)
+    {
+        for(int j=0; j< ycenter; j++)
+        {
+            for(int k=0; k< zcenter; k++)
+            {
+
+                //esfera
+                if (((i-xcenter)*(i-xcenter)) + ((j-ycenter)*(j-ycenter)) + ((k-zcenter)*(k-zcenter)) <= ((radius)*(radius)))
+                {
+                    v[i][j][k].isOn = true;
+                    v[i][j][k].r = _r;
+                    v[i][j][k].g = _g;
+                    v[i][j][k].b = _p;
+                    v[i][j][k].a = _alpha;
+                }}}}}
+
+void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
+
+    for(int i=0; i< xcenter; i++)
+    {
+        for(int j=0; j< ycenter; j++)
+        {
+            for(int k=0; k< zcenter; k++)
+            {
+                //Equacao da esfera
+                if (((i-xcenter)*(i-xcenter)) + ((j-ycenter)*(j-ycenter)) + ((k-zcenter)*(j-ycenter)) <= ((radius)*(radius)))
+                {
+                    v[i][j][k].r = _r;
+                    v[i][j][k].g = _g;
+                    v[i][j][k].b = _p;
+                    v[i][j][k].a = _alpha;
+                    v[i][j][k].isOn = false;
+
+                }}}}}
+
