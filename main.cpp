@@ -74,8 +74,9 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) {
 }
 
 Sculptor::~Sculptor() {
-  cout << "sera que foi?" << endl;
-
+  delete [] v[0][0];
+  delete [] v[0];
+  delete [] v;
   
   // //deallocate memory
   // for (int i = 0; i < nx; i++)
