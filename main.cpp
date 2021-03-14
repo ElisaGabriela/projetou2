@@ -216,5 +216,17 @@ void Sculptor::writeOFF(char* filename){
   f.close();
 }
 
+void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
+    for (int i = x0; i<x1+1; i++){
+        for (int j = y0; j<y1+1; j++){
+            for (int k = z0; i<z1+1; k++){
+
+                v[i][j][k].r = _r;
+                v[i][j][k].g = _g;
+                v[i][j][k].b = _p;
+                v[i][j][k].a = _alpha;
+                v[i][j][k].isOn = true;
+
+            }}}}
 
   
