@@ -278,3 +278,42 @@ void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
 
                 }}}}}
 
+void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz){
+    for(int i=0; i< rx; i++)
+    {
+        for(int j=0; j< ry; j++)
+        {
+            for(int k=0; k< rz; k++)
+            {
+                //Equacao da elipse
+                if ((((i-xcenter)*(i-xcenter))/((float)((xcenter)*(xcenter)))) + (((j-ycenter)*(j-ycenter))/((float)((ycenter)*(ycenter))))
+                        + (((k-zcenter)*(k-zcenter))/((float)((zcenter)*(zcenter)))) <=1.0)
+                {
+                    v[i][j][k].r = _r;
+                    v[i][j][k].g = _g;
+                    v[i][j][k].b = _p;
+                    v[i][j][k].a = _alpha;
+                    v[i][j][k].isOn = true;
+
+                }}}}}
+
+void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz){
+    for(int i=0; i< rx; i++)
+    {
+        for(int j=0; j< ry; j++)
+        {
+            for(int k=0; k< rz; k++)
+            {
+                //equacao da elipse
+                if ((((i-xcenter)*(i-xcenter))/((float)((xcenter)*(xcenter)))) +
+                        ((((j-ycenter)*(j-ycenter)))/((float)((ycenter)*(ycenter)))) +
+                        ((((k-zcenter)*(k-zcenter)))/((float)((zcenter)*(zcenter)))) <=1.0)
+                {
+                    v[i][j][k].r = _r;
+                    v[i][j][k].g = _g;
+                    v[i][j][k].b = _p;
+                    v[i][j][k].a = _alpha;
+                    v[i][j][k].isOn = false;
+
+                }}}}}
+
