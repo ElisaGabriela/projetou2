@@ -33,13 +33,13 @@ public:
 };
 
 int main() {
-    Sculptor Voxel(5,5,5);
-    Voxel.setColor(1,0,0,1);
+    Sculptor Voxel(8,8,8);
+    Voxel.setColor(1,1,0,1);
     Voxel.putBox(0,4,0,4,0,4);
     Voxel.cutBox(0,3,0,3,0,4);
 
 
-    Voxel.writeOFF((char*)"voxels.off");
+    Voxel.writeOFF((char*)"tabua.off");
 
     return 0;
 }
@@ -218,9 +218,10 @@ void Sculptor::writeOFF(char* filename){
 }
 
 void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
-    for (int i = x0; i<x1+1; i++){
-        for (int j = y0; j<y1+1; j++){
-            for (int k = z0; i<z1+1; k++){
+
+    for (int i = x0; i < x1; i++){
+        for (int j = y0; j < y1; j++){
+            for (int k = z0; k < z1; k++){
 
                 v[i][j][k].r = r;
                 v[i][j][k].g = g;
@@ -228,12 +229,15 @@ void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
                 v[i][j][k].a = a;
                 v[i][j][k].isOn = true;
 
-            }}}}
+            }
+        }
+    }
+}
 
 void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1){
-    for (int i = x0; i<x1+1; i++){
-        for (int j = y0; j<y1+1; j++){
-            for (int k = z0; i<z1+1; k++){
+    for (int i = x0; i<x1; i++){
+        for (int j = y0; j<y1; j++){
+            for (int k = z0; k<z1; k++){
                 v[i][j][k].r = r;
                 v[i][j][k].g = g;
                 v[i][j][k].b = b;
