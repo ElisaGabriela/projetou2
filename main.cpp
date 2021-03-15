@@ -34,11 +34,12 @@ public:
 
 int main() {
     Sculptor Voxel(8,8,8);
-    Voxel.setColor(1,1,1,0.4);
-    Voxel.putSphere(3,3,3,2);
+    Voxel.setColor(1,1,0,1);
+    Voxel.putBox(0,4,0,4,0,4);
+    Voxel.cutBox(0,3,0,3,0,4);
 
 
-    Voxel.writeOFF((char*)"esfera.off");
+    Voxel.writeOFF((char*)"tabua.off");
 
     return 0;
 }
@@ -90,7 +91,6 @@ Sculptor::~Sculptor() {
 }
 
 void Sculptor::setColor(float red, float green, float blue, float alpha) {
-  cout << "chegou aqui..." << endl;
   r = red; g = green; b = blue; a = alpha;
 }
 
@@ -235,38 +235,34 @@ void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
 }
 
 void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1){
-    for (int i = x0; i < x1; i++){
-        for (int j = y0; j < y1; j++){
-            for (int k = z0; k < z1; k++){
-                
+    for (int i = x0; i<x1; i++){
+        for (int j = y0; j<y1; j++){
+            for (int k = z0; k<z1; k++){
                 v[i][j][k].r = r;
                 v[i][j][k].g = g;
                 v[i][j][k].b = b;
                 v[i][j][k].a = a;
                 v[i][j][k].isOn = false;
-            }
-        }
-    }
-}
+
+            }}}}
 
 void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
-    for(int i = 0; i < xcenter; i++)
+    for(int i=0; i< xcenter; i++)
     {
-        for(int j = 0; j < ycenter; j++)
+        for(int j=0; j< ycenter; j++)
         {
-            for(int k=0; k < zcenter; k++)
+            for(int k=0; k< zcenter; k++)
             {
-                if ((((i-xcenter)^2) + ((j-ycenter)^2) + ((k-zcenter)^2)) <= ((radius)^2)){
+
+                //esfera
+                if (((i-xcenter)*(i-xcenter)) + ((j-ycenter)*(j-ycenter)) + ((k-zcenter)*(k-zcenter)) <= ((radius)*(radius)))
+                {
                     v[i][j][k].isOn = true;
                     v[i][j][k].r = r;
                     v[i][j][k].g = g;
                     v[i][j][k].b = b;
                     v[i][j][k].a = a;
-                }
-            }
-        }
-    }
-}
+                }}}}}
 
 void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
 
