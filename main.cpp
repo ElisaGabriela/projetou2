@@ -251,7 +251,7 @@ void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
                 px=i-xcenter;
                 py=j-ycenter;
                 pz=k-zcenter;
-                if(pow(px,2)+pow(py,2)+pow(pz,2)<=pow(radius,2))
+                if((px^2)+(py^2)+(pz^2)<=(radius^2))
                     {
                         if(i<nx && j<ny && k<nz && i>0 && j>0 && k>0)
                             putVoxel(i,j,k);
