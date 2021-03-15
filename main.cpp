@@ -72,11 +72,7 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) {
   }   
 }
 
-Sculptor::~Sculptor() {
-  // delete [] v[0][0];
-  // delete [] v[0];
-  // delete [] v;
-  
+Sculptor::~Sculptor() {  
   //deallocate memory
   for (int i = 0; i < nx; i++)
     {
@@ -257,7 +253,11 @@ void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
                     v[i][j][k].g = g;
                     v[i][j][k].b = b;
                     v[i][j][k].a = a;
-                }}}}}
+                }
+            }
+        }
+    }
+}
 
 void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
 
