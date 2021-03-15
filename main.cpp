@@ -239,26 +239,27 @@ void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1){
 
             }}}}
 
-void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
-    for(int i = 0; i < xcenter; i++)
+void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
+{
+    int px=0,py=0,pz=0;
+    for(int i=0; i<nx; i++)
     {
-        for(int j = 0; j < ycenter; j++)
+        for(int j=0; j<ny; j++)
         {
-            for(int k = 0; k < zcenter; k++)
+            for(int k=0; k<nz; k++)
             {
-                if ((((i-xcenter)^2) + ((j-ycenter)^2) + ((k-zcenter)^2)) <= ((radius)^2))
-                {
-                    v[i][j][k].isOn = true;
-                    v[i][j][k].r = r;
-                    v[i][j][k].g = g;
-                    v[i][j][k].b = b;
-                    v[i][j][k].a = a;
-                }
+                px=i-xcenter;
+                py=j-ycenter;
+                pz=k-zcenter;
+                if(pow(px,2)+pow(py,2)+pow(pz,2)<=pow(radius,2))
+                    {
+                        if(i<nx && j<ny && k<nz && i>0 && j>0 && k>0)
+                            putVoxel(i,j,k);
+                    }
             }
         }
     }
 }
-
 void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
 
     for(int i=0; i< xcenter; i++)
