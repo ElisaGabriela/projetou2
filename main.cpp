@@ -33,13 +33,12 @@ public:
 };
 
 int main() {
-    Sculptor Voxel(8,8,8);
-    Voxel.setColor(1,1,0,1);
-    Voxel.putBox(0,4,0,4,0,4);
-    Voxel.cutBox(0,3,0,3,0,4);
+    Sculptor Voxel(12,12,12);
+    Voxel.setColor(1,1,1,0.4);
+    Voxel.putSphere(5,5,5,4);
 
 
-    Voxel.writeOFF((char*)"tabua.off");
+    Voxel.writeOFF((char*)"naotabua.off");
 
     return 0;
 }
@@ -74,20 +73,20 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) {
 }
 
 Sculptor::~Sculptor() {
-  delete [] v[0][0];
-  delete [] v[0];
-  delete [] v;
+  // delete [] v[0][0];
+  // delete [] v[0];
+  // delete [] v;
   
-  // //deallocate memory
-  // for (int i = 0; i < nx; i++)
-  //   {
-  //     for (int j = 0; j < ny; j++)
-  //     {
-  //       delete[] v[i][j];
-  //     }
-  //     delete[] v[i];
-  //   }
-  //   delete[] v;
+  //deallocate memory
+  for (int i = 0; i < nx; i++)
+    {
+      for (int j = 0; j < ny; j++)
+      {
+        delete[] v[i][j];
+      }
+      delete[] v[i];
+    }
+    delete[] v;
 }
 
 void Sculptor::setColor(float red, float green, float blue, float alpha) {
@@ -99,7 +98,6 @@ void Sculptor::cutVoxel(int x, int y, int z) {
 } 
 
 void Sculptor::putVoxel(int x, int y, int z){
-  cout << "chegou aqui..." << endl;
   v[x][y][z].isOn = true;
   v[x][y][z].r = r;
   v[x][y][z].g = g;
@@ -109,7 +107,6 @@ void Sculptor::putVoxel(int x, int y, int z){
 }
 
 void Sculptor::writeOFF(char* filename){
-  cout << "chegou aqui..." << endl;
   int total, index, x, y, z;
   float lado = 0.5;
   ofstream f;
@@ -247,15 +244,13 @@ void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1){
             }}}}
 
 void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
-    for(int i=0; i< xcenter; i++)
+    for(int i = 0; i < xcenter; i++)
     {
-        for(int j=0; j< ycenter; j++)
+        for(int j = 0; j < ycenter; j++)
         {
-            for(int k=0; k< zcenter; k++)
+            for(int k = 0; k < zcenter; k++)
             {
-
-                //esfera
-                if (((i-xcenter)*(i-xcenter)) + ((j-ycenter)*(j-ycenter)) + ((k-zcenter)*(k-zcenter)) <= ((radius)*(radius)))
+                if ((((i-xcenter)^2) + ((j-ycenter)^2) + ((k-zcenter)^2)) <= ((radius)^2))
                 {
                     v[i][j][k].isOn = true;
                     v[i][j][k].r = r;
