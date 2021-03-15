@@ -38,7 +38,7 @@ int main() {
     Voxel.putSphere(5,5,5,4);
 
 
-    Voxel.writeOFF((char*)"naotabua.off");
+    Voxel.writeOFF((char*)"porfavoresfera.off");
 
     return 0;
 }
