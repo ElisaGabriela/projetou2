@@ -39,6 +39,12 @@ int main() {
 
 
     Voxel.writeOFF((char*)"naotabua.off");
+    Sculptor Voxel(20,20,20);
+    Voxel.setColor(1,0,1,0.4);
+    Voxel.putSphere(7,7,7,6);
+    Voxel.cutSphere(8,8,8,5);
+
+    Voxel.writeOFF((char*)"esferaaaaaa.off");
 
     return 0;
 }
@@ -287,6 +293,64 @@ void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
                     v[i][j][k].isOn = false;
 
                 }}}}}
+// void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
+// {
+//     double calc;
+//     if ((xcenter < 0) || (ycenter < 0) || (zcenter < 0) || (xcenter > nx) || (ycenter > ny) || (zcenter > nz))
+//     {
+//       return;
+//     }
+//     calc = (double)radius*(double)radius;
+
+//     for(int i = 0; i < nx; i++)
+//     {
+//         for(int j = 0; j < ny; j++)
+//         {
+//             for(int k = 0; k < nz; k++)
+//             {
+//                  if ((((i-xcenter)^2) + ((j-ycenter)^2) + ((k-zcenter)^2)) <= (calc))
+//                 {
+//                     v[i][j][k].isOn = true;
+//                     v[i][j][k].r = r;
+//                     v[i][j][k].g = g;
+//                     v[i][j][k].b = b;
+//                     v[i][j][k].a = a;
+//                 }
+//             }
+//         }
+//     }
+// }
+void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius){
+    //Verificação das dimensões atribuida.
+    if(xcenter<0 || xcenter>nx || ycenter<0 || ycenter>ny || zcenter<0 || zcenter>nz || (radius+xcenter)>nx || (radius+ycenter)>ny || (radius+zcenter)>nz || radius < 0){
+        exit(1);
+    }
+    //Análisando os Voxels no intervalo determinado e atribuindo as cores.
+    else{
+        //Variavel para armazenar o raio efetuando a transformação de int para double.
+        double rd=radius/2.0;
+        //Variavel para a distância da esfera em relação a todos os Voxel.
+        double dist;
+        for(int i=0;i<nx;i++){
+            for(int j=0;j<ny;j++){
+                for(int k=0;k<nz;k++){
+                    //Equação da esfera.
+                    dist = (i-xcenter / 2.0 ) * (i-xcenter / 2.0 ) / (rd * rd) +
+                              (j-ycenter / 2.0 ) * (j-ycenter / 2.0 ) /(rd * rd) +
+                              (k-zcenter / 2.0 ) * (k-zcenter / 2.0 ) / (rd * rd);
+                    //Condição para efetuar o desenho da esfera.
+                    if(dist<=1.0){
+                        v[i][j][k].isOn=false;
+                        v[i][j][k].r=r;
+                        v[i][j][k].b=b;
+                        v[i][j][k].g=g;
+                        v[i][j][k].a=a;
+                    }
+                }
+            }
+        }
+    }
+}
 
 void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz){
     for(int i=0; i< rx; i++)
@@ -296,8 +360,7 @@ void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
             for(int k=0; k< rz; k++)
             {
                 //Equacao da Elipse
-                if ((((i-xcenter)*(i-xcenter))/((float)((xcenter)*(xcenter)))) + (((j-ycenter)*(j-ycenter))/((float)((ycenter)*(ycenter))))
-                        + (((k-zcenter)*(k-zcenter))/((float)((zcenter)*(zcenter)))) <=1.0)
+                if ((((i-xcenter)^2)/((float)((xcenter)^2))) + (((j-ycenter)^2)/((float)((ycenter)^2))) + (((k-zcenter)^2)/((float)((zcenter)^2))) <= 1.0)
                 {
                     v[i][j][k].r = r;
                     v[i][j][k].g = g;
@@ -305,7 +368,11 @@ void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
                     v[i][j][k].a = a;
                     v[i][j][k].isOn = true;
 
-                }}}}}
+                }
+            }
+        }
+    }
+}
 
 void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz){
     for(int i=0; i< rx; i++)
@@ -327,3 +394,34 @@ void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int r
 
                 }}}}}
 
+void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius){
+    //Verificação das dimensões atribuida.
+    if(xcenter<0 || xcenter>nx || ycenter<0 || ycenter>ny || zcenter<0 || zcenter>nz || (radius+xcenter)>nx || (radius+ycenter)>ny || (radius+zcenter)>nz || radius < 0){
+        exit(1);
+    }
+    //Análisando os Voxels no intervalo determinado e atribuindo as cores.
+    else{
+        //Variavel para armazenar o raio efetuando a transformação de int para double.
+        double rd=radius/2.0;
+        //Variavel para a distância da esfera em relação a todos os Voxel.
+        double dist;
+        for(int i=0;i<nx;i++){
+            for(int j=0;j<ny;j++){
+                for(int k=0;k<nz;k++){
+                    //Equação da esfera.
+                    dist = (i-xcenter / 2.0 ) * (i-xcenter / 2.0 ) / (rd * rd) +
+                              (j-ycenter / 2.0 ) * (j-ycenter / 2.0 ) /(rd * rd) +
+                              (k-zcenter / 2.0 ) * (k-zcenter / 2.0 ) / (rd * rd);
+                    //Condição para efetuar o desenho da esfera.
+                    if(dist<=1.0){
+                        v[i][j][k].isOn=true;
+                        v[i][j][k].r=r;
+                        v[i][j][k].b=b;
+                        v[i][j][k].g=g;
+                        v[i][j][k].a=a;
+                    }
+                }
+            }
+        }
+    }
+}
