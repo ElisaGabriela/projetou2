@@ -33,18 +33,10 @@ public:
 };
 
 int main() {
-    Sculptor Voxel(12,12,12);
-    Voxel.setColor(1,1,1,0.4);
-    Voxel.putSphere(5,5,5,4);
-
-
-    Voxel.writeOFF((char*)"naotabua.off");
-    Sculptor Voxel(20,20,20);
-    Voxel.setColor(1,0,1,0.4);
-    Voxel.putSphere(7,7,7,6);
-    Voxel.cutSphere(8,8,8,5);
-
-    Voxel.writeOFF((char*)"esferaaaaaa.off");
+    Sculptor Voxel(5,5,5);
+    Voxel.setColor(1,0,0,1);
+    Voxel.putVoxel(1,1,1);
+    Voxel.writeOFF((char*)"voxels.off");
 
     return 0;
 }
@@ -52,6 +44,8 @@ int main() {
 Sculptor::Sculptor(int _nx, int _ny, int _nz) {
   nx = _nx; ny = _ny; nz = _nz;
   r=g=b=a=0.5;
+
+  //o código não está passando daqui... 😭😭😭
 
   v = new Voxel**[nx];
 
@@ -78,17 +72,24 @@ Sculptor::Sculptor(int _nx, int _ny, int _nz) {
   }   
 }
 
-Sculptor::~Sculptor() {  
+Sculptor::~Sculptor() {
+  cout << "sera que foi?" << endl;
+
+  
   //deallocate memory
-if(nl==0||nc==0||np==0){
-        return;
+  for (int i = 0; i < nx; i++)
+    {
+      for (int j = 0; j < ny; j++)
+      {
+        delete[] v[i][j];
+      }
+      delete[] v[i];
     }
-    delete [] v[0][0];
-    delete [] v[0];
-    delete [] v;
+    delete[] v;
 }
 
 void Sculptor::setColor(float red, float green, float blue, float alpha) {
+  cout << "chegou aqui..." << endl;
   r = red; g = green; b = blue; a = alpha;
 }
 
@@ -97,6 +98,7 @@ void Sculptor::cutVoxel(int x, int y, int z) {
 } 
 
 void Sculptor::putVoxel(int x, int y, int z){
+  cout << "chegou aqui..." << endl;
   v[x][y][z].isOn = true;
   v[x][y][z].r = r;
   v[x][y][z].g = g;
@@ -106,6 +108,7 @@ void Sculptor::putVoxel(int x, int y, int z){
 }
 
 void Sculptor::writeOFF(char* filename){
+  cout << "chegou aqui..." << endl;
   int total, index, x, y, z;
   float lado = 0.5;
   ofstream f;
@@ -232,8 +235,8 @@ void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1){
 
 void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1){
     for (int i = x0; i<x1; i++){
-        for (int j = y0; j<y1; j++){
-            for (int k = z0; k<z1; k++){
+        for (int j = y0; j < y1; j++){
+            for (int k = z0; k < z1; k++){
                 v[i][j][k].r = r;
                 v[i][j][k].g = g;
                 v[i][j][k].b = b;
